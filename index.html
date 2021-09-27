@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!--Google icon-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--style main-->
+    <link rel="stylesheet" href="./src/style/style.css">
+    <title>Web Xaydung</title>
+    <script>
+
+        window.addEventListener('load', (event) => {
+            onRouteChanged();
+        });
+
+        function onRouteChanged() {
+            const hash = window.location.hash;
+            const routerOutlet = document.getElementById("router-outlet");
+            //Check DOM routeroutlet có tồn tại hay không
+            if (!(routerOutlet instanceof HTMLElement)) {
+                throw new ReferenceError("No view element available for rendering");
+            };
+            switch (hash) {
+                // TRƯỜNG HỢP HASH #/home thì render ra file home.js
+                case "#/home":
+                    if (document.querySelector("script[src='./src/app/home/home.js']") == null) {
+                        setTimeout(() => {
+                            const homeScript = document.createElement('script');
+                            homeScript.onload = function () {
+                                routerOutlet.innerHTML = renderHomePage();
+                            };
+                            homeScript.src = "./src/app/home/home.js";
+                            document.getElementsByTagName('head')[0].appendChild(homeScript);
+                        }, 100);
+                    };
+                    if (document.querySelector("script[src='./src/app/home/home.js']") != null) {
+                        setTimeout(() => {
+                            routerOutlet.innerHTML = renderHomePage();
+                        }, 100);
+                    };
+                    break;
+
+                    case "#/about":
+                    if (document.querySelector("script[src='./src/app/about/about.js']") == null) {
+                        setTimeout(() => {
+                            const homeScript = document.createElement('script');
+                            homeScript.onload = function () {
+                                routerOutlet.innerHTML = renderAboutPage();
+                            };
+                            homeScript.src = "./src/app/about/about.js";
+                            document.getElementsByTagName('head')[0].appendChild(homeScript);
+                        }, 100);
+                    };
+                    if (document.querySelector("script[src='./src/app/about/about.js']") != null) {
+                        setTimeout(() => {
+                            routerOutlet.innerHTML = renderAboutPage();
+                        }, 100);
+                    };
+                    break;
+                    default:
+                        alert("404 page")
+                        break;
+            }
+        };
+
+        window.addEventListener("hashchange", onRouteChanged);
+    </script>
+</head>
+
+<body>
+
+
+    <i class="material-icons">
+        info
+        </i>
+    <!--header-->
+    <ul id="app-nav-bar" class="no-margin no-padding">
+        <li><a href="#/home">Home</a></li>
+        <li><a href="#/about">About</a></li>
+        <li><a href="#/page-2">Page 2</a></li>
+    </ul>
+
+    <!--DOM ĐÉN ID NÀY-->
+    <div id="router-outlet"></div>
+
+
+    <!-- FOOOTer-->
+    <!-- JavaScript Bundle with Popper BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

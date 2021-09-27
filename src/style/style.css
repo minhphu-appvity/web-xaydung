@@ -1,0 +1,48 @@
+h1{
+    color: red;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    /* border: #000 solid 1px; */
+    border-radius: 3px;
+    margin: 24px;
+    padding: 24px;
+    text-align: center;
+}
+
+#app-nav-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+}
+
+#app-nav-bar li {
+    margin: 6px 24px;
+}
+
+#app-nav-bar a {
+    text-decoration: none;
+    color: blue !important;
+    font-weight: bold;
+}
