@@ -17,6 +17,9 @@
     <title>Web Xaydung</title>
     <script>
 
+
+// esinv8 v12
+
         window.addEventListener('load', (event) => {
             onRouteChanged();
         });
@@ -56,7 +59,7 @@
                                 routerOutlet.innerHTML = renderAboutPage();
                             };
                             homeScript.src = "./src/app/about/about.js";
-                            document.getElementsByTagName('head')[0].appendChild(homeScript);
+                            document.getElementsByTagName('head')[0].appendChild(homeScript); // appendchild nằm cuối cùng trong head
                         }, 100);
                     };
                     if (document.querySelector("script[src='./src/app/about/about.js']") != null) {
@@ -66,7 +69,21 @@
                     };
                     break;
                     default:
-                        alert("404 page")
+                    if (document.querySelector("script[src='./src/app/page-not-found/page-not-found.js']") == null) {
+                        setTimeout(() => {
+                            const homeScript = document.createElement('script');
+                            homeScript.onload = function () {
+                                routerOutlet.innerHTML = renderPage404();
+                            };
+                            homeScript.src = "./src/app/page-not-found/page-not-found.js";
+                            document.getElementsByTagName('head')[0].appendChild(homeScript); // appendchild nằm cuối cùng trong head
+                        }, 100);
+                    };
+                    if (document.querySelector("script[src='./src/app/page-not-found/page-not-found.js']") != null) {
+                        setTimeout(() => {
+                            routerOutlet.innerHTML = renderPage404();
+                        }, 100);
+                    };
                         break;
             }
         };
@@ -100,3 +117,24 @@
 </body>
 
 </html>
+
+
+<!-- Get Id router-outlet
+
+Check # URL xem
+URL = Home
+check xem file js - nếu = null 
+**render: => tạo 1 thẻ script rồi load file script 
+=> load hàm renderHome trong file js rồi gắn src cho thẻ script
+=> gắn vào vị trí cuối cùng trong thẻ head
+nếu # null
+***rerender: thì chỉ việc innerHTMl lên router-outlet vì nó đã đc render cái thẻ script js trong head rồi
+
+Khi đổi url ( đổi page )
+thi window.addEventListener("hashchange", onRouteChanged);
+sẽ thưc hiện lăng nghe sự kiện , sự kiên này chỉ sảy ra khi url thay đổi ( đổi page)
+gọi lại hame router outchange;
+vẫn chạy vào check xem lại file đó đa được load hay chưa
+nếu thẻ scrtip đó = null thì gọi lại **render
+còn # null thì vchir việc gọi lại ***rerender
+ -->
